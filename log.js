@@ -68,7 +68,7 @@ module.exports = class Logger {
         return this[_req]('PATCH', url + id, body);
     }
 
-    async _req(method, url, body = null) {
+    async [_req](method, url, body = null) {
         const res = await centra(url, method)
             .header('Authorization', this.auth)
             .body(convertCase(body, snakeCase), 'json')
@@ -95,7 +95,7 @@ module.exports = class Logger {
 
             const { service } = this;
             try {
-                const res = await this._req('POST', url, { level, service, message, data });
+                const res = await this[_req]('POST', url, { level, service, message, data });
                 if (!res.success) {
                     this[_print](level, { message, data });
                     return { error: res.error };
