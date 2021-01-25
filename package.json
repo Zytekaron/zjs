@@ -14,5 +14,7 @@
         "lodash": "latest",
         "moment": "^2.29.1"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "dotenv": "^8.2.0"
+    }
 }
