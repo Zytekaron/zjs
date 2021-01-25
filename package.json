@@ -13,7 +13,7 @@
     "dependencies": {
         "centra": "^2.4.2",
         "change-case": "^4.1.2",
-        "jvar": "^1.5.0",
+        "jvar": "^1.5.1",
         "lodash": "latest",
         "moment": "^2.29.1",
         "dotenv": "^8.2.0"

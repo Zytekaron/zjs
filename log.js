@@ -1,12 +1,10 @@
 const moment = require('moment');
 const centra = require('centra');
 const ensure = require('jvar/utility/ensure');
+const { format: _format } = require('jvar/fn');
 
 const { camelCase, snakeCase } = require('change-case');
-const {
-    forOwn: _forOwn,
-    isObject: _isObject
-} = require('lodash');
+const { forOwn: _forOwn, isObject: _isObject } = require('lodash');
 
 const levels = ['FATAL', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE'];
 const url = 'https://log.zytekaron.com/';
@@ -28,16 +26,27 @@ module.exports = class Logger {
             info: this[_make]('INFO'),
             debug: this[_make]('DEBUG'),
             trace: this[_make]('TRACE')
-        })
+        });
     }
 
     // prototypes
-    fatal(message, data) { }
-    error(message, data) { }
-    warn(message, data) { }
-    info(message, data) { }
-    debug(message, data) { }
-    trace(message, data) { }
+    fatal(message, ...args) {
+    }
+
+    error(message, ...args) {
+    }
+
+    warn(message, ...args) {
+    }
+
+    info(message, ...args) {
+    }
+
+    debug(message, ...args) {
+    }
+
+    trace(message, ...args) {
+    }
 
     setLevel(level = 'INFO') {
         level = level.toUpperCase();
@@ -80,37 +89,33 @@ module.exports = class Logger {
         return convertCase(JSON.parse(text), camelCase);
     }
 
-    [_print](level, { id = '???', message, data, createdAt = Date.now() } = {}) {
+    [_print](level, { id = '???', message, createdAt = Date.now() } = {}) {
         if (levels.indexOf(level) <= levels.indexOf(this.level)) {
             const time = moment(createdAt).format('MM/DD/YY hh:mm:ss');
 
             console.log(`[${time} ${id}] ${level}:`, message);
-            if (data) console.log('->', data);
         }
     }
 
     [_make](level) {
-        return async (message, data = {}) => {
-            ensure.type(message, 'string');
+        return async (format, ...data) => {
+            ensure.type(format, 'string');
+            const message = _format(format, ...data);
 
             const { service } = this;
             try {
-                const res = await this[_req]('POST', url, { level, service, message, data });
+                const res = await this[_req]('POST', url, { level, service, message });
                 if (!res.success) {
-                    this[_print](level, { message, data });
+                    this[_print](level, { message });
                     return { error: res.error };
                 }
 
-                const obj = Object.assign(res.data, {
-                    message,
-                    data,
-                    service
-                });
+                const obj = { ...res.data, message };
                 this[_print](level, obj);
 
                 return obj;
             } catch (err) {
-                this[_print](level, { message, data });
+                this[_print](level, { message });
                 return { error: err.toString() };
             }
         };
