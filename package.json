@@ -1,6 +1,6 @@
 {
     "name": "@zytekaron/zjs",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": "Michael Thornes <zytekaron@gmail.com>",
     "description": "A utility package to integrate with my personal services",
     "main": "index.js",
@@ -15,9 +15,7 @@
         "change-case": "^4.1.2",
         "jvar": "^1.5.0",
         "lodash": "latest",
-        "moment": "^2.29.1"
-    },
-    "devDependencies": {
+        "moment": "^2.29.1",
         "dotenv": "^8.2.0"
     },
     "bugs": {
