@@ -1,6 +1,6 @@
 {
     "name": "@zytekaron/zjs",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": "Michael Thornes <zytekaron@gmail.com>",
     "description": "A utility package to integrate with my personal services",
     "main": "index.js",
