@@ -32,12 +32,12 @@ module.exports = class Logger {
     }
 
     // prototypes
-    fatal(message, data) {}
-    error(message, data) {}
-    warn(message, data) {}
-    info(message, data) {}
-    debug(message, data) {}
-    trace(message, data) {}
+    fatal(message, data) { }
+    error(message, data) { }
+    warn(message, data) { }
+    info(message, data) { }
+    debug(message, data) { }
+    trace(message, data) { }
 
     setLevel(level = 'INFO') {
         level = level.toUpperCase();
@@ -71,7 +71,7 @@ module.exports = class Logger {
     async _req(method, url, body = null) {
         const res = await centra(url, method)
             .header('Authorization', this.auth)
-            .body(convertCase(body, snakeCase))
+            .body(convertCase(body, snakeCase), 'json')
             .send();
         const text = await res.text();
         if (text.startsWith('Forbidden')) {
@@ -85,12 +85,12 @@ module.exports = class Logger {
             const time = moment(createdAt).format('MM/DD/YY hh:mm:ss');
 
             console.log(`[${time} ${id}] ${level}:`, message);
-            console.log('->', data);
+            if (data) console.log('->', data);
         }
     }
 
     [_make](level) {
-        return async (message, data) => {
+        return async (message, data = {}) => {
             ensure.type(message, 'string');
 
             const { service } = this;
@@ -102,7 +102,9 @@ module.exports = class Logger {
                 }
 
                 const obj = Object.assign(res.data, {
-                    message, data
+                    message,
+                    data,
+                    service
                 });
                 this[_print](level, obj);
 
