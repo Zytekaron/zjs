@@ -11,7 +11,8 @@
         "centra": "^2.4.2",
         "change-case": "^4.1.2",
         "jvar": "^1.5.0",
-        "lodash": "latest"
+        "lodash": "latest",
+        "moment": "^2.29.1"
     },
     "devDependencies": {}
 }
