@@ -1,5 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
-    x: () => {
-        console.log()
-    }
+    Logger: require('./log')
 };

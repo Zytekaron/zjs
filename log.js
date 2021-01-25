@@ -73,8 +73,11 @@ module.exports = class Logger {
             .header('Authorization', this.auth)
             .body(convertCase(body, snakeCase))
             .send();
-        const json = await res.json();
-        return convertCase(json, camelCase);
+        const text = await res.text();
+        if (text.startsWith('Forbidden')) {
+            throw new Error('Forbidden: Bad API token');
+        }
+        return convertCase(JSON.parse(text), camelCase);
     }
 
     [_print](level, { id = '???', message, data, createdAt = Date.now() } = {}) {
