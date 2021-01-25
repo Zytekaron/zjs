@@ -1,0 +1,15 @@
+{
+  "name": "@zytekaron/zjs",
+  "version": "1.0.0",
+  "author": "Michael Thornes <zytekaron@gmail.com>",
+  "description": "A utility package to integrate with my personal services",
+  "main": "index.js",
+  "keywords": [],
+  "license": "MIT",
+  "repository": "Zytekaron/zjs",
+  "dependencies": {
+    "centra": "^2.4.2",
+    "jvar": "^1.5.0",
+    "lodash": "latest"
+  }
+}
