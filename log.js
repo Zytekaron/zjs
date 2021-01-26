@@ -107,16 +107,15 @@ module.exports = class Logger {
                 const res = await this[_req]('POST', url, { level, service, message });
                 if (!res.success) {
                     this[_print](level, { message });
-                    return { error: res.error };
+                    return { message, service, error: res.error };
                 }
 
-                const obj = { ...res.data, message };
-                this[_print](level, obj);
+                this[_print](level, res.data);
 
-                return obj;
+                return res.data;
             } catch (err) {
                 this[_print](level, { message });
-                return { error: err.toString() };
+                return { message, service, level, error: err.toString() };
             }
         };
     }
