@@ -84,7 +84,10 @@ module.exports = class Logger {
             .send();
         const text = await res.text();
         if (text.startsWith('Forbidden')) {
-            throw new Error('Forbidden: Bad API token');
+            throw new Error('Forbidden: No API token');
+        }
+        if (text.startsWith('Unauthorized')) {
+            throw new Error('Unauthorized: Bad API token');
         }
         return convertCase(JSON.parse(text), camelCase);
     }
