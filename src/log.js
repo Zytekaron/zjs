@@ -14,7 +14,7 @@ const _make = Symbol('_make');
 const _print = Symbol('_print');
 
 module.exports = class Logger {
-    constructor(service = 'Unknown Service', auth = process.env.ZYTEKARON_AUTH) {
+    constructor(service, auth) {
         this.setLevel();
 
         Object.assign(this, {
