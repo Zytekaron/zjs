@@ -66,6 +66,10 @@ module.exports = class Logger {
         return this[_req]('GET', `${url}?limit=${limit}&offset=${offset}`);
     }
 
+    count() {
+        return this[_req]('GET', url + 'count');
+    }
+
     delete(id) {
         ensure.type(id, 'string');
         return this[_req]('DELETE', url + id);
