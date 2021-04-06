@@ -31,21 +31,27 @@ module.exports = class Logger {
 
     // prototypes
     fatal(message, ...args) {
+        throw new Error('Bad method called');
     }
 
     error(message, ...args) {
+        throw new Error('Bad method called');
     }
 
     warn(message, ...args) {
+        throw new Error('Bad method called');
     }
 
     info(message, ...args) {
+        throw new Error('Bad method called');
     }
 
     debug(message, ...args) {
+        throw new Error('Bad method called');
     }
 
     trace(message, ...args) {
+        throw new Error('Bad method called');
     }
 
     setLevel(level = 'INFO') {
@@ -114,7 +120,7 @@ module.exports = class Logger {
                 const res = await this[_req]('POST', url, { level, service, message });
                 if (!res.success) {
                     this[_print](level, { message });
-                    return { message, service, error: res.error };
+                    return { message, error: res.message, data: res.data };
                 }
 
                 this[_print](level, res.data);
